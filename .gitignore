@@ -1,5 +1,6 @@
 .idea/
 dist/
 
-rust/
-!rust/**/*.rs
+rust/*
+!rust/*.rs
+!rust/utils
