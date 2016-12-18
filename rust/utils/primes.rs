@@ -1,5 +1,34 @@
 use std::vec::Vec;
 
+/// Simplest struct for prime representation
+pub struct Prime {
+    curr: u64
+}
+
+impl Iterator for Prime {
+    type Item = u64;
+
+    /// Returns next prime factor after current one
+    fn next(&mut self) -> Option<u64> {
+        let mut new_next = self.curr + 1;
+
+        while !is_prime(new_next) {
+            new_next += 1;
+        }
+
+        self.curr = new_next;
+
+        Some(self.curr)
+    }
+}
+
+/// Simple 'constructor' with 1 as default start
+impl Prime {
+    pub fn new() -> Prime {
+        Prime { curr: 1 }
+    }
+}
+
 /// Returns true if given `num` is prime number
 pub fn is_prime(num: u64) -> bool {
     if num < 4 {
