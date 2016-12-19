@@ -1,10 +1,6 @@
-mod utils;
+use std::ops::Range;
 
-/// Self-explanatory
-struct Range {
-    from: u32,
-    to: u32
-}
+mod utils;
 
 /// Finds a largest palindrome made from product of n-digit numbers
 fn main() {
@@ -17,11 +13,11 @@ fn main() {
 /// of multipliers for a given range
 ///
 /// find_largest_palindrome(10..99) -> 8448
-fn find_largest_palindrome(range: Range) -> u64 {
+fn find_largest_palindrome(range: Range<u32>) -> u64 {
     let mut largest: u64 = 0;
 
-    for i in range.from..range.to {
-        for j in (range.from..range.to).rev() {
+    for i in range.clone() {
+        for j in range.clone().rev() {
             let mult: u64 = (i * j) as u64;
 
             if is_palindrome(mult) && mult > largest {
@@ -50,11 +46,8 @@ fn is_palindrome(num: u64) -> bool {
 ///
 /// to_range(2) -> 10..99
 /// to_range(3) -> 100..999
-fn to_range(magnitude: u8) -> Range {
-    Range {
-        from: 10u32.pow((magnitude - 1) as u32),
-        to: 10u32.pow(magnitude as u32) - 1
-    }
+fn to_range(magnitude: u8) -> Range<u32> {
+    10u32.pow((magnitude - 1) as u32)..(10u32.pow(magnitude as u32) - 1)
 }
 
 
